@@ -1,0 +1,104 @@
+﻿
+
+<script src="~/Content/Angular/Module.js"></script>
+<script src="~/Content/Angular/UsuarioService.js"></script>
+<script src="~/Content/Angular/UsuarioController.js"></script>
+<style>
+    .inputdemoErrors .inputErrorsApp {
+        min-height: 48px;
+    }
+
+    .inputdemoErrors md-input-container > p {
+        font-size: 0.8em;
+        text-align: left;
+        width: 100%;
+    }
+</style>
+
+
+
+<head>
+    <title>Register</title>
+</head>
+
+
+<div ng-controller="UsuarioController" layout="column" ng-cloak="">
+    <br />
+
+    <md-toolbar class="md-accent" style="background-color: #04B404; border-radius: 14px 14px 14px 14px;
+-moz-border-radius: 14px 14px 14px 14px;
+-webkit-border-radius: 14px 14px 14px 14px;
+border: 0px inset #050405">
+        <h1 class="md-toolbar-tools" style="text-align: center;">
+            <span flex>Registrate!</span>
+        </h1>
+    </md-toolbar><br />
+    <md-content layout-padding="" style="border-radius: 14px 14px 14px 14px;
+-moz-border-radius: 14px 14px 14px 14px;
+-webkit-border-radius: 14px 14px 14px 14px;
+border: 0px inset #050405;">
+        <form name="userForm">
+
+            <div layout-gt-sm="row">
+                <md-input-container flex="100">
+                    <label>Nombre</label>
+                    <md-icon md-svg-src="~/Content/Icons/employee.svg" class="fName"></md-icon>
+                    <input id="fName" name="fName" ng-model="fName" required autofocus />
+                    <div ng-messages="userForm.fName.$error">
+                        <div ng-message="required">El nombre es requerido !</div>
+                    </div>
+                </md-input-container>
+                <md-input-container flex="100">
+                    <label>Apellidos</label>
+                    <md-icon md-svg-src="~/Content/Icons/employee.svg" class="lName"></md-icon>
+                    <input type="text" name="lName" ng-model="lName" required autofocus />
+                    <div ng-messages="userForm.lName.$error">
+                        <div ng-message="required">El apellido es requerido !</div>
+                    </div>
+                </md-input-container>
+            </div>
+            <div layout-gt-sm="row">
+                <md-input-container flex="100">
+                    <label>Correo</label>
+                    <md-icon md-svg-src="~/Content/Icons/mail.svg" class="uEmail"></md-icon>
+                    <input type="email" name="uEmail" ng-model="uEmail" ng-pattern="/^.+.+\..+$/" required autofocus />
+                    <div ng-messages="userForm.uEmail.$error">
+                        <div ng-message-exp="['required','pattern']">El correo no tiene el formato correcto !</div>
+                    </div>
+                </md-input-container>
+
+                <md-input-container flex="100">
+                    <label>Nombre de Usuario</label>
+                    <!-- <md-icon md-svg-src="~/Content/Icons/placeholder.svg" class="uName"></md-icon> -->
+                    <input type="text" name="uName" ng-model="uName" md-maxlength="8" required autofocus />
+                    <div ng-messages="userForm.uName.$error">
+                        <div ng-message="required">El usuario es requerido !</div>
+                        <div ng-message="md-maxlength">Maximum 8 characters allowed !</div>
+                    </div>
+                </md-input-container>
+            </div>
+
+            <md-input-container>
+                <label>Contraseña</label>
+                <md-icon md-svg-src="~/Content/Icons/cityscape.svg" class="uPwd"></md-icon>
+                <input type="password" name="uPwd" ng-model="uPwd" md-maxlength="10" required autofocus />
+                <div ng-messages="userForm.uPwd.$error">
+                    <div ng-message="required">La contraseña es requerida !</div>
+                    <div ng-message="md-maxlength">Maximum 10 characters allowed !</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container class="md-icon-float md-block" flex-gt-sm>
+                <md-button class="md-raised md-primary" ng-click="SaveUser();" ng-disabled="!(fName && lName && uEmail && uName && uPwd)">
+                    <md-tooltip>
+                        Save
+                    </md-tooltip>
+                    Guardar
+                </md-button>
+
+            </md-input-container>
+
+        </form>
+    </md-content>
+</div>
+

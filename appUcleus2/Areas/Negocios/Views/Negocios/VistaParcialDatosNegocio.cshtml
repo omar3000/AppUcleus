@@ -1,0 +1,177 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<style>
+    .inputdemoErrors .inputErrorsApp {
+        min-height: 48px;
+    }
+
+    .inputdemoErrors md-input-container > p {
+        font-size: 0.8em;
+        text-align: left;
+        width: 100%;
+    }
+
+    img {
+        width: 100PX;
+        height: 100px;
+        margin: 10px;
+    }
+</style>
+
+
+<div ng-app="myApp">
+
+    <div ng-controller="NegocioAdminController" layout="column" ng-cloak="">
+
+        <md-toolbar class="md-accent" style="background-color: #04B404; border-radius: 14px 14px 14px 14px;
+-moz-border-radius: 14px 14px 14px 14px;
+-webkit-border-radius: 14px 14px 14px 14px;
+border: 0px inset #050405">
+            <h1 class="md-toolbar-tools" style="text-align: center;">
+                <span flex>Datos de tu negocio</span>
+            </h1>
+        </md-toolbar><br /><br />
+
+        <md-content layout-padding="" style="border-radius: 14px 14px 14px 14px;
+-moz-border-radius: 14px 14px 14px 14px;
+-webkit-border-radius: 14px 14px 14px 14px;
+border: 0px inset #050405;">
+            <form name="projectForm">
+                <div layout-gt-sm="row" ng-init="GetNegocio()">
+                    <md-input-container flex="100">
+                        <label>Nombre</label>
+                        <input id="nombre" required name="nombre" ng-model="nombre" md-no-asterisk="" autofocus>
+                        <div ng-messages="projectForm.nombre.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container flex="100">
+                        <label>Correo Negocio</label>
+                        <input id="correo" required type="email" name="Email" ng-model="correo"
+                               minlength="10" maxlength="100" ng-pattern="/^.+.+\..+$/" />
+
+                        <div ng-messages="projectForm.correo.$error" role="alert">
+                            <div ng-message-exp="['required', 'minlength', 'maxlength', 'pattern']">
+                                Your email must be between 10 and 100 characters long .
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                </div>
+
+                <md-input-container class="md-block">
+                    <label>Descripcion</label>
+                    <textarea ng-model="descripcion" md-maxlength="200" rows="3" md-select-on-focus></textarea>
+                </md-input-container>
+
+
+                <div div layout-gt-sm="row">
+                    <md-input-container flex="100">
+                        <label>Calle</label>
+                        <input id="calle" required name="calle" ng-model="calle">
+                        <div ng-messages="projectForm.calle.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container flex="100">
+                        <label>Numero</label>
+                        <input id="numero" required name="numero" ng-model="numero">
+                        <div ng-messages="projectForm.numero.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container flex="100">
+                        <label>Codigo Postal</label>
+                        <input id="codigoPostal" name="codigoPostal" ng-model="codigoPostal" placeholder="12345"
+                               required ng-pattern="/^[0-9]{5}$/" md-maxlength="5">
+
+                        <div ng-messages="projectForm.codigoPostal.$error" role="alert" multiple>
+                            <div ng-message="required" class="my-message">You must supply a postal code.</div>
+                            <div ng-message="pattern" class="my-message">
+                                That doesn't look like a valid postal
+                                code.
+                            </div>
+                            <div ng-message="md-maxlength" class="my-message">
+                                Don't use the long version silly...we don't need to be that specific...
+                            </div>
+                        </div>
+                    </md-input-container>
+
+                </div>
+
+                <div div layout-gt-sm="row">
+                    <md-input-container flex="100">
+                        <label>Colonia</label>
+                        <input id="colonia" required name="colonia" ng-model="colonia">
+                        <div ng-messages="projectForm.colonia.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+
+                    <md-input-container flex="100">
+                        <label>Ciudad</label>
+                        <input id="ciudad" required name="ciudad" ng-model="ciudad">
+                        <div ng-messages="projectForm.ciudad.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container flex="100">
+                        <label>Precio envio (MXN)</label>
+                        <input id="precioEnvio" required type="number" step="any" name="rate" ng-model="precioEnvio" min="0"
+                               max="50" />
+
+
+                    </md-input-container>
+
+                </div>
+
+                <md-input-container class="md-block">
+                    <label>Imagen del Negocio</label>
+                    <input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
+                    <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.file.$error.required">Image required!</span>
+                    <span class="error">{{FileInvalidMessage}}</span>
+                    <div id="preview">
+
+                    </div>
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                    <md-checkbox name="pagos" ng-model="permitePagosTarjeta" required>
+                        Cuento con terminal para pagos con tarjeta
+                    </md-checkbox>
+                    <div ng-messages="projectForm.tos.$error" multiple md-auto-hide="false">
+                        <div ng-message="required">
+                            You must accept the terms of service before you can proceed.
+                        </div>
+                    </div>
+                </md-input-container>
+
+
+
+                <md-input-container class="md-icon-float md-block" flex-gt-sm>
+                    <md-button id="btnSave" class="md-raised md-primary" ng-click="SaveFile();" ng-disabled="!(nombre)">
+                        <md-tooltip>
+                            Guardar
+                        </md-tooltip>
+                        Guardar
+                    </md-button>
+
+                </md-input-container>
+
+
+
+            </form>
+
+        </md-content>
+
+    </div>
+
+    @Html.Hidden("idNegocio")
+</div>
+

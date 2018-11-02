@@ -1,0 +1,66 @@
+﻿<style>
+    .listdemoBasicUsage md-divider {
+        margin-top: 0px;
+        margin-bottom: 0;
+    }
+
+    .listdemoListControls md-divider {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .listdemoListControls md-list {
+        padding-top: 0;
+    }
+
+    .listdemoListControls md-list-item > p,
+    .listdemoListControls md-list-item > .md-list-item-inner > p,
+    .listdemoListControls md-list-item .md-list-item-inner > p,
+    .listdemoListControls md-list-item .md-list-item-inner > .md-list-item-inner > p {
+        -webkit-user-select: none;
+        /* Chrome all / Safari all */
+        -moz-user-select: none;
+        /* Firefox all */
+        -ms-user-select: none;
+        /* IE 10+ */
+        user-select: none;
+        /* Likely future */
+    }
+
+    .dialogdemoThemeInheritance .container {
+        text-align: center;
+    }
+</style>
+
+
+<md-dialog-actions ng-cloak="" md-theme="{{theme}}" layout-gt-sm="row" layout="column" class="listdemoBasicUsage" ng-app="myApp">
+
+    <md-dialog-actions ng-controller="VentaAdminController" flex-gt-sm="100" flex="" ng-init="PedidosNegocio()">
+        <md-content>
+            <md-list flex="" layout="column">
+                <md-dialog-actions layout="row">
+                    <md-subheader class="md-no-sticky">Productos</md-subheader>
+                    <span flex></span>
+                </md-dialog-actions>
+
+                <md-list-item class="md-3-line" ng-repeat="item in pedidos" ng-click="showAdvanced($event, item.idventa)">
+                   
+                    <div class="md-list-item-text" layout="column">
+             
+                        <p class="md-secondary">Fecha de Pedido: {{ item.fechaPedido.substr(6,13) | date:"MM/dd/yyyy h:mma"}} - </p>
+                        <h5> Productos (de click para ver detalles del pedido)</h5>
+                        <p class="md-secondary" va name="special"> Total: ${{ item.total }}</p>
+
+                    </div>
+
+                </md-list-item>
+                <md-divider></md-divider>
+            </md-list>
+        </md-content>
+
+        <!--modal-->
+        <div ng-include="'ModalVerPedido'"></div>
+    </md-dialog-actions>
+</md-dialog-actions>
+
+

@@ -1,0 +1,36 @@
+﻿body
+{
+
+}
+.dropdown-menu > li > a {
+    color: white;
+    font-size: 20px;
+}
+
+    .dropdown-menu > li > a:hover,
+    .dropdown-menu > li > a:focus {
+        color: #FACC2E;
+        background-color: #04B404;
+    }
+
+.dropdown-toggle > li > a:hover,
+.dropdown-toggle > li > a:focus {
+    color: #FACC2E;
+    background-color: #04B404;
+}
+
+html, body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.navbar-brand, .navbar .nav > li > a {
+    color: white;
+    font-size: 20px;
+}
+
+    .navbar-brand, .navbar .nav > li > a:hover,
+    .navbar-brand, .navbar .nav > li > a:focus {
+        color: #FACC2E;
+        background-color: #04B404;
+    }

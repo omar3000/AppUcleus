@@ -1,0 +1,92 @@
+﻿<script type="text/ng-template" id="dialog1.tmpl.html">
+    <md-dialog aria-label="Mango (Fruit)" style="border-radius: 14px 14px 14px 14px;
+-moz-border-radius: 14px 14px 14px 14px;
+-webkit-border-radius: 14px 14px 14px 14px;
+border: 0px inset #050405; width: 70%;"  ng-controller="ProductoController">
+        <form ng-cloak name="projectForm">
+            <div ng-init="GetProducto()">
+                <md-toolbar class="md-accent" style="background-color: #04B404;">
+                    <div class="md-toolbar-tools">
+
+                        
+                            <span ng-if="idProducto == null" class="glyphicon glyphicon-plus"></span>
+                            <h1  ng-if="idProducto == null">   Agregar Producto</h1>
+                       
+
+                        
+                            <span ng-if="idProducto != null" class="glyphicon glyphicon-pencil"></span>
+                            <h1 ng-if="idProducto != null">  Editar producto #{{idProducto}} </h1>
+                        
+
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                            <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+
+                <md-content layout-padding="" style="border-radius: 14px 14px 14px 14px;
+-moz-border-radius: 14px 14px 14px 14px;
+-webkit-border-radius: 14px 14px 14px 14px;
+border: 0px inset #050405">
+
+
+                    <md-input-container class="md-block">
+                        <label>Producto</label>
+                        <input id="producto" required name="producto" ng-model="producto" md-no-asterisk="" autofocus>
+                        <div ng-messages="projectForm.producto.$error">
+                            <div ng-message="required">This is required.</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Descripcion</label>
+                        <textarea ng-model="descripcion" md-maxlength="200" rows="2" md-select-on-focus></textarea>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Categoria</label>
+                        <md-select ng-model="fkCategoria">
+                            <md-option ng-repeat="categoria in categorias" value="{{categoria.idCategoria}}">{{categoria.nombre}}</md-option>
+                        </md-select>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Precio  (MXN)</label>
+                        <input id="precio" required type="number" step="any" name="rate" ng-model="precio" min="0"
+                               max="50" />
+
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>Imagen del Producto</label>
+                        <input type="file" name="file" accept="image/*" onchange="angular.element(this).scope().selectFileforUpload(this.files)" required />
+                        <span class="error" ng-show="(f1.file.$dirty || IsFormSubmitted) && f1.file.$error.required">Image required!</span>
+                        <span class="error">{{FileInvalidMessage}}</span>
+                        <div id="preview">
+
+                        </div>
+                    </md-input-container>
+
+                    <md-dialog-actions layout="row">
+                        <span flex></span>
+                        <md-button ng-click="answer('not useful')">
+                            No Guardar
+                        </md-button>
+                        <md-button ng-click="SaveFile(idProducto);" ng-disabled="!(producto)" class="md-primary">
+                            Guardar
+                        </md-button>
+                    </md-dialog-actions>
+
+
+                    <image-upload url="https://httpbin.org/status/200" [uploadedFiles]="images"></image-upload>
+
+
+
+                </md-content>
+               
+            </div>
+        </form>
+    </md-dialog>
+   
+</script>

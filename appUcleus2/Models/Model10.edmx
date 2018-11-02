@@ -1,0 +1,863 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="appUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="calificaciones">
+          <Key>
+            <PropertyRef Name="idCalificacion" />
+          </Key>
+          <Property Name="idCalificacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="calificacion" Type="decimal" Precision="2" Scale="2" Nullable="false" />
+          <Property Name="fkUsuario" Type="int" Nullable="false" />
+          <Property Name="fkNegocio" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="categorias">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="detalleVenta">
+          <Key>
+            <PropertyRef Name="idDetalle" />
+          </Key>
+          <Property Name="idDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="precio" Type="money" Nullable="false" />
+          <Property Name="observacion" Type="nvarchar" MaxLength="50" />
+          <Property Name="cantidad" Type="int" Nullable="false" />
+          <Property Name="fkProducto" Type="int" Nullable="false" />
+          <Property Name="fkVenta" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="negocios">
+          <Key>
+            <PropertyRef Name="idNegocio" />
+          </Key>
+          <Property Name="idNegocio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="imgNegocio" Type="nvarchar" MaxLength="200" />
+          <Property Name="calle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="numero" Type="int" Nullable="false" />
+          <Property Name="colonia" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ciudad" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="codigoPostal" Type="int" />
+          <Property Name="latitud" Type="float" />
+          <Property Name="longitud" Type="float" />
+          <Property Name="fkUsuario" Type="int" Nullable="false" />
+          <Property Name="precioEnvio" Type="money" />
+          <Property Name="permitePagosTarjeta" Type="bit" />
+          <Property Name="activo" Type="bit" />
+          <Property Name="correo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="producto" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="imgProducto" Type="varchar" MaxLength="200" />
+          <Property Name="activo" Type="bit" Nullable="false" />
+          <Property Name="precio" Type="money" Nullable="false" />
+          <Property Name="fkNegocio" Type="int" />
+          <Property Name="fechaRegistro" Type="date" />
+          <Property Name="fkCategoria" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ubicaciones">
+          <Key>
+            <PropertyRef Name="idubicacion" />
+          </Key>
+          <Property Name="idubicacion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fkUsuario" Type="int" Nullable="false" />
+          <Property Name="latitud" Type="float" Nullable="false" />
+          <Property Name="longitud" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidoPaterno" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellidoMaterno" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="usuario" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="correo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="contraseña" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="activo" Type="bit" />
+          <Property Name="fechaRegistro" Type="date" Nullable="false" />
+          <Property Name="fkNegocio" Type="int" />
+          <Property Name="repartidor" Type="bit" />
+        </EntityType>
+        <EntityType Name="ventas">
+          <Key>
+            <PropertyRef Name="idventa" />
+          </Key>
+          <Property Name="idventa" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fechaPedido" Type="datetime" Nullable="false" />
+          <Property Name="fechaPreparado" Type="datetime" />
+          <Property Name="fechaentregado" Type="datetime" />
+          <Property Name="fechaCancelado" Type="datetime" />
+          <Property Name="fkUsuarioPedido" Type="int" Nullable="false" />
+          <Property Name="fkNegocio" Type="int" Nullable="false" />
+          <Property Name="fkubicacionPedido" Type="int" Nullable="false" />
+          <Property Name="fkUsuarioRepartidor" Type="int" />
+          <Property Name="fkubicacionRepartidor" Type="int" />
+          <Property Name="total" Type="money" Nullable="false" />
+          <Property Name="estatus" Type="int" />
+          <Property Name="pagoConTarjeta" Type="bit" />
+        </EntityType>
+        <Association Name="FK_calificaciones_negocios">
+          <End Role="negocios" Type="Self.negocios" Multiplicity="1" />
+          <End Role="calificaciones" Type="Self.calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="negocios">
+              <PropertyRef Name="idNegocio" />
+            </Principal>
+            <Dependent Role="calificaciones">
+              <PropertyRef Name="fkNegocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_calificaciones_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="calificaciones" Type="Self.calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="calificaciones">
+              <PropertyRef Name="fkUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detalleVenta_productos">
+          <End Role="productos" Type="Self.productos" Multiplicity="1" />
+          <End Role="detalleVenta" Type="Self.detalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="detalleVenta">
+              <PropertyRef Name="fkProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detalleVenta_ventas">
+          <End Role="ventas" Type="Self.ventas" Multiplicity="1" />
+          <End Role="detalleVenta" Type="Self.detalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ventas">
+              <PropertyRef Name="idventa" />
+            </Principal>
+            <Dependent Role="detalleVenta">
+              <PropertyRef Name="fkVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_negocios_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="negocios" Type="Self.negocios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="negocios">
+              <PropertyRef Name="fkUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_productos_categorias">
+          <End Role="categorias" Type="Self.categorias" Multiplicity="1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="fkCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_productos_negocios">
+          <End Role="negocios" Type="Self.negocios" Multiplicity="0..1" />
+          <End Role="productos" Type="Self.productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="negocios">
+              <PropertyRef Name="idNegocio" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="fkNegocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ubicaciones_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="ubicaciones" Type="Self.ubicaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ubicaciones">
+              <PropertyRef Name="fkUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuarios_negocios">
+          <End Role="negocios" Type="Self.negocios" Multiplicity="0..1" />
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="negocios">
+              <PropertyRef Name="idNegocio" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="fkNegocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ventas_negocios">
+          <End Role="negocios" Type="Self.negocios" Multiplicity="1" />
+          <End Role="ventas" Type="Self.ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="negocios">
+              <PropertyRef Name="idNegocio" />
+            </Principal>
+            <Dependent Role="ventas">
+              <PropertyRef Name="fkNegocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ventas_ubicaciones">
+          <End Role="ubicaciones" Type="Self.ubicaciones" Multiplicity="1" />
+          <End Role="ventas" Type="Self.ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ubicaciones">
+              <PropertyRef Name="idubicacion" />
+            </Principal>
+            <Dependent Role="ventas">
+              <PropertyRef Name="fkubicacionPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ventas_ubicaciones1">
+          <End Role="ubicaciones" Type="Self.ubicaciones" Multiplicity="0..1" />
+          <End Role="ventas" Type="Self.ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ubicaciones">
+              <PropertyRef Name="idubicacion" />
+            </Principal>
+            <Dependent Role="ventas">
+              <PropertyRef Name="fkubicacionRepartidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ventas_usuarios">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+          <End Role="ventas" Type="Self.ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ventas">
+              <PropertyRef Name="fkUsuarioPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ventas_usuarios1">
+          <End Role="usuarios" Type="Self.usuarios" Multiplicity="0..1" />
+          <End Role="ventas" Type="Self.ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ventas">
+              <PropertyRef Name="fkUsuarioRepartidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="appUModelStoreContainer">
+          <EntitySet Name="calificaciones" EntityType="Self.calificaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="categorias" EntityType="Self.categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="detalleVenta" EntityType="Self.detalleVenta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="negocios" EntityType="Self.negocios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="productos" EntityType="Self.productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ubicaciones" EntityType="Self.ubicaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ventas" EntityType="Self.ventas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_calificaciones_negocios" Association="Self.FK_calificaciones_negocios">
+            <End Role="negocios" EntitySet="negocios" />
+            <End Role="calificaciones" EntitySet="calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_calificaciones_usuarios" Association="Self.FK_calificaciones_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="calificaciones" EntitySet="calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detalleVenta_productos" Association="Self.FK_detalleVenta_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="detalleVenta" EntitySet="detalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detalleVenta_ventas" Association="Self.FK_detalleVenta_ventas">
+            <End Role="ventas" EntitySet="ventas" />
+            <End Role="detalleVenta" EntitySet="detalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_negocios_usuarios" Association="Self.FK_negocios_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="negocios" EntitySet="negocios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_productos_categorias" Association="Self.FK_productos_categorias">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_productos_negocios" Association="Self.FK_productos_negocios">
+            <End Role="negocios" EntitySet="negocios" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ubicaciones_usuarios" Association="Self.FK_ubicaciones_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ubicaciones" EntitySet="ubicaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuarios_negocios" Association="Self.FK_usuarios_negocios">
+            <End Role="negocios" EntitySet="negocios" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ventas_negocios" Association="Self.FK_ventas_negocios">
+            <End Role="negocios" EntitySet="negocios" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ventas_ubicaciones" Association="Self.FK_ventas_ubicaciones">
+            <End Role="ubicaciones" EntitySet="ubicaciones" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ventas_ubicaciones1" Association="Self.FK_ventas_ubicaciones1">
+            <End Role="ubicaciones" EntitySet="ubicaciones" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ventas_usuarios" Association="Self.FK_ventas_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ventas_usuarios1" Association="Self.FK_ventas_usuarios1">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="appUModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="appUEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="calificaciones" EntityType="appUModel.calificaciones" />
+          <EntitySet Name="categorias" EntityType="appUModel.categorias" />
+          <EntitySet Name="detalleVenta" EntityType="appUModel.detalleVenta" />
+          <EntitySet Name="negocios" EntityType="appUModel.negocios" />
+          <EntitySet Name="productos" EntityType="appUModel.productos" />
+          <EntitySet Name="ubicaciones" EntityType="appUModel.ubicaciones" />
+          <EntitySet Name="usuarios" EntityType="appUModel.usuarios" />
+          <EntitySet Name="ventas" EntityType="appUModel.ventas" />
+          <AssociationSet Name="FK_calificaciones_negocios" Association="appUModel.FK_calificaciones_negocios">
+            <End Role="negocios" EntitySet="negocios" />
+            <End Role="calificaciones" EntitySet="calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_calificaciones_usuarios" Association="appUModel.FK_calificaciones_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="calificaciones" EntitySet="calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_productos_categorias" Association="appUModel.FK_productos_categorias">
+            <End Role="categorias" EntitySet="categorias" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detalleVenta_productos" Association="appUModel.FK_detalleVenta_productos">
+            <End Role="productos" EntitySet="productos" />
+            <End Role="detalleVenta" EntitySet="detalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_detalleVenta_ventas" Association="appUModel.FK_detalleVenta_ventas">
+            <End Role="ventas" EntitySet="ventas" />
+            <End Role="detalleVenta" EntitySet="detalleVenta" />
+          </AssociationSet>
+          <AssociationSet Name="FK_negocios_usuarios" Association="appUModel.FK_negocios_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="negocios" EntitySet="negocios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_productos_negocios" Association="appUModel.FK_productos_negocios">
+            <End Role="negocios" EntitySet="negocios" />
+            <End Role="productos" EntitySet="productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_usuarios_negocios" Association="appUModel.FK_usuarios_negocios">
+            <End Role="negocios" EntitySet="negocios" />
+            <End Role="usuarios" EntitySet="usuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ventas_negocios" Association="appUModel.FK_ventas_negocios">
+            <End Role="negocios" EntitySet="negocios" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ubicaciones_usuarios" Association="appUModel.FK_ubicaciones_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ubicaciones" EntitySet="ubicaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ventas_ubicaciones" Association="appUModel.FK_ventas_ubicaciones">
+            <End Role="ubicaciones" EntitySet="ubicaciones" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ventas_ubicaciones1" Association="appUModel.FK_ventas_ubicaciones1">
+            <End Role="ubicaciones" EntitySet="ubicaciones" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ventas_usuarios" Association="appUModel.FK_ventas_usuarios">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ventas_usuarios1" Association="appUModel.FK_ventas_usuarios1">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="ventas" EntitySet="ventas" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="calificaciones">
+          <Key>
+            <PropertyRef Name="idCalificacion" />
+          </Key>
+          <Property Name="idCalificacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="calificacion" Type="Decimal" Nullable="false" Precision="2" Scale="2" />
+          <Property Name="fkUsuario" Type="Int32" Nullable="false" />
+          <Property Name="fkNegocio" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="negocios" Relationship="appUModel.FK_calificaciones_negocios" FromRole="calificaciones" ToRole="negocios" />
+          <NavigationProperty Name="usuarios" Relationship="appUModel.FK_calificaciones_usuarios" FromRole="calificaciones" ToRole="usuarios" />
+        </EntityType>
+        <EntityType Name="categorias">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="productos" Relationship="appUModel.FK_productos_categorias" FromRole="categorias" ToRole="productos" />
+        </EntityType>
+        <EntityType Name="detalleVenta">
+          <Key>
+            <PropertyRef Name="idDetalle" />
+          </Key>
+          <Property Name="idDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="observacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cantidad" Type="Int32" Nullable="false" />
+          <Property Name="fkProducto" Type="Int32" Nullable="false" />
+          <Property Name="fkVenta" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="productos" Relationship="appUModel.FK_detalleVenta_productos" FromRole="detalleVenta" ToRole="productos" />
+          <NavigationProperty Name="ventas" Relationship="appUModel.FK_detalleVenta_ventas" FromRole="detalleVenta" ToRole="ventas" />
+        </EntityType>
+        <EntityType Name="negocios">
+          <Key>
+            <PropertyRef Name="idNegocio" />
+          </Key>
+          <Property Name="idNegocio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="imgNegocio" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="calle" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="numero" Type="Int32" Nullable="false" />
+          <Property Name="colonia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ciudad" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="codigoPostal" Type="Int32" />
+          <Property Name="latitud" Type="Double" />
+          <Property Name="longitud" Type="Double" />
+          <Property Name="fkUsuario" Type="Int32" Nullable="false" />
+          <Property Name="precioEnvio" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="permitePagosTarjeta" Type="Boolean" />
+          <Property Name="activo" Type="Boolean" />
+          <Property Name="correo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="calificaciones" Relationship="appUModel.FK_calificaciones_negocios" FromRole="negocios" ToRole="calificaciones" />
+          <NavigationProperty Name="usuarios" Relationship="appUModel.FK_negocios_usuarios" FromRole="negocios" ToRole="usuarios" />
+          <NavigationProperty Name="productos" Relationship="appUModel.FK_productos_negocios" FromRole="negocios" ToRole="productos" />
+          <NavigationProperty Name="usuarios1" Relationship="appUModel.FK_usuarios_negocios" FromRole="negocios" ToRole="usuarios" />
+          <NavigationProperty Name="ventas" Relationship="appUModel.FK_ventas_negocios" FromRole="negocios" ToRole="ventas" />
+        </EntityType>
+        <EntityType Name="productos">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="producto" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="imgProducto" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" Nullable="false" />
+          <Property Name="precio" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="fkNegocio" Type="Int32" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="0" />
+          <Property Name="fkCategoria" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="categorias" Relationship="appUModel.FK_productos_categorias" FromRole="productos" ToRole="categorias" />
+          <NavigationProperty Name="detalleVenta" Relationship="appUModel.FK_detalleVenta_productos" FromRole="productos" ToRole="detalleVenta" />
+          <NavigationProperty Name="negocios" Relationship="appUModel.FK_productos_negocios" FromRole="productos" ToRole="negocios" />
+        </EntityType>
+        <EntityType Name="ubicaciones">
+          <Key>
+            <PropertyRef Name="idubicacion" />
+          </Key>
+          <Property Name="idubicacion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fkUsuario" Type="Int32" Nullable="false" />
+          <Property Name="latitud" Type="Double" Nullable="false" />
+          <Property Name="longitud" Type="Double" Nullable="false" />
+          <NavigationProperty Name="usuarios" Relationship="appUModel.FK_ubicaciones_usuarios" FromRole="ubicaciones" ToRole="usuarios" />
+          <NavigationProperty Name="ventas" Relationship="appUModel.FK_ventas_ubicaciones" FromRole="ubicaciones" ToRole="ventas" />
+          <NavigationProperty Name="ventas1" Relationship="appUModel.FK_ventas_ubicaciones1" FromRole="ubicaciones" ToRole="ventas" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="apellidoPaterno" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="apellidoMaterno" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="usuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="correo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="contraseña" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="activo" Type="Boolean" />
+          <Property Name="fechaRegistro" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fkNegocio" Type="Int32" />
+          <Property Name="repartidor" Type="Boolean" />
+          <NavigationProperty Name="calificaciones" Relationship="appUModel.FK_calificaciones_usuarios" FromRole="usuarios" ToRole="calificaciones" />
+          <NavigationProperty Name="negocios" Relationship="appUModel.FK_negocios_usuarios" FromRole="usuarios" ToRole="negocios" />
+          <NavigationProperty Name="negocios1" Relationship="appUModel.FK_usuarios_negocios" FromRole="usuarios" ToRole="negocios" />
+          <NavigationProperty Name="ubicaciones" Relationship="appUModel.FK_ubicaciones_usuarios" FromRole="usuarios" ToRole="ubicaciones" />
+          <NavigationProperty Name="ventas" Relationship="appUModel.FK_ventas_usuarios" FromRole="usuarios" ToRole="ventas" />
+          <NavigationProperty Name="ventas1" Relationship="appUModel.FK_ventas_usuarios1" FromRole="usuarios" ToRole="ventas" />
+        </EntityType>
+        <EntityType Name="ventas">
+          <Key>
+            <PropertyRef Name="idventa" />
+          </Key>
+          <Property Name="idventa" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fechaPedido" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="fechaPreparado" Type="DateTime" Precision="3" />
+          <Property Name="fechaentregado" Type="DateTime" Precision="3" />
+          <Property Name="fechaCancelado" Type="DateTime" Precision="3" />
+          <Property Name="fkUsuarioPedido" Type="Int32" Nullable="false" />
+          <Property Name="fkNegocio" Type="Int32" Nullable="false" />
+          <Property Name="fkubicacionPedido" Type="Int32" Nullable="false" />
+          <Property Name="fkUsuarioRepartidor" Type="Int32" />
+          <Property Name="fkubicacionRepartidor" Type="Int32" />
+          <Property Name="total" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="estatus" Type="Int32" />
+          <Property Name="pagoConTarjeta" Type="Boolean" />
+          <NavigationProperty Name="detalleVenta" Relationship="appUModel.FK_detalleVenta_ventas" FromRole="ventas" ToRole="detalleVenta" />
+          <NavigationProperty Name="negocios" Relationship="appUModel.FK_ventas_negocios" FromRole="ventas" ToRole="negocios" />
+          <NavigationProperty Name="ubicaciones" Relationship="appUModel.FK_ventas_ubicaciones" FromRole="ventas" ToRole="ubicaciones" />
+          <NavigationProperty Name="ubicaciones1" Relationship="appUModel.FK_ventas_ubicaciones1" FromRole="ventas" ToRole="ubicaciones" />
+          <NavigationProperty Name="usuarios" Relationship="appUModel.FK_ventas_usuarios" FromRole="ventas" ToRole="usuarios" />
+          <NavigationProperty Name="usuarios1" Relationship="appUModel.FK_ventas_usuarios1" FromRole="ventas" ToRole="usuarios" />
+        </EntityType>
+        <Association Name="FK_calificaciones_negocios">
+          <End Type="appUModel.negocios" Role="negocios" Multiplicity="1" />
+          <End Type="appUModel.calificaciones" Role="calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="negocios">
+              <PropertyRef Name="idNegocio" />
+            </Principal>
+            <Dependent Role="calificaciones">
+              <PropertyRef Name="fkNegocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_calificaciones_usuarios">
+          <End Type="appUModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="appUModel.calificaciones" Role="calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="calificaciones">
+              <PropertyRef Name="fkUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_productos_categorias">
+          <End Type="appUModel.categorias" Role="categorias" Multiplicity="1" />
+          <End Type="appUModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categorias">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="fkCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detalleVenta_productos">
+          <End Type="appUModel.productos" Role="productos" Multiplicity="1" />
+          <End Type="appUModel.detalleVenta" Role="detalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="productos">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="detalleVenta">
+              <PropertyRef Name="fkProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_detalleVenta_ventas">
+          <End Type="appUModel.ventas" Role="ventas" Multiplicity="1" />
+          <End Type="appUModel.detalleVenta" Role="detalleVenta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ventas">
+              <PropertyRef Name="idventa" />
+            </Principal>
+            <Dependent Role="detalleVenta">
+              <PropertyRef Name="fkVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_negocios_usuarios">
+          <End Type="appUModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="appUModel.negocios" Role="negocios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="negocios">
+              <PropertyRef Name="fkUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_productos_negocios">
+          <End Type="appUModel.negocios" Role="negocios" Multiplicity="0..1" />
+          <End Type="appUModel.productos" Role="productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="negocios">
+              <PropertyRef Name="idNegocio" />
+            </Principal>
+            <Dependent Role="productos">
+              <PropertyRef Name="fkNegocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_usuarios_negocios">
+          <End Type="appUModel.negocios" Role="negocios" Multiplicity="0..1" />
+          <End Type="appUModel.usuarios" Role="usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="negocios">
+              <PropertyRef Name="idNegocio" />
+            </Principal>
+            <Dependent Role="usuarios">
+              <PropertyRef Name="fkNegocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ventas_negocios">
+          <End Type="appUModel.negocios" Role="negocios" Multiplicity="1" />
+          <End Type="appUModel.ventas" Role="ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="negocios">
+              <PropertyRef Name="idNegocio" />
+            </Principal>
+            <Dependent Role="ventas">
+              <PropertyRef Name="fkNegocio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ubicaciones_usuarios">
+          <End Type="appUModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="appUModel.ubicaciones" Role="ubicaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ubicaciones">
+              <PropertyRef Name="fkUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ventas_ubicaciones">
+          <End Type="appUModel.ubicaciones" Role="ubicaciones" Multiplicity="1" />
+          <End Type="appUModel.ventas" Role="ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ubicaciones">
+              <PropertyRef Name="idubicacion" />
+            </Principal>
+            <Dependent Role="ventas">
+              <PropertyRef Name="fkubicacionPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ventas_ubicaciones1">
+          <End Type="appUModel.ubicaciones" Role="ubicaciones" Multiplicity="0..1" />
+          <End Type="appUModel.ventas" Role="ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ubicaciones">
+              <PropertyRef Name="idubicacion" />
+            </Principal>
+            <Dependent Role="ventas">
+              <PropertyRef Name="fkubicacionRepartidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ventas_usuarios">
+          <End Type="appUModel.usuarios" Role="usuarios" Multiplicity="1" />
+          <End Type="appUModel.ventas" Role="ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ventas">
+              <PropertyRef Name="fkUsuarioPedido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ventas_usuarios1">
+          <End Type="appUModel.usuarios" Role="usuarios" Multiplicity="0..1" />
+          <End Type="appUModel.ventas" Role="ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="ventas">
+              <PropertyRef Name="fkUsuarioRepartidor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="appUModelStoreContainer" CdmEntityContainer="appUEntities1">
+          <EntitySetMapping Name="calificaciones">
+            <EntityTypeMapping TypeName="appUModel.calificaciones">
+              <MappingFragment StoreEntitySet="calificaciones">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="fkNegocio" ColumnName="fkNegocio" />
+                <ScalarProperty Name="fkUsuario" ColumnName="fkUsuario" />
+                <ScalarProperty Name="calificacion" ColumnName="calificacion" />
+                <ScalarProperty Name="idCalificacion" ColumnName="idCalificacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="categorias">
+            <EntityTypeMapping TypeName="appUModel.categorias">
+              <MappingFragment StoreEntitySet="categorias">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="detalleVenta">
+            <EntityTypeMapping TypeName="appUModel.detalleVenta">
+              <MappingFragment StoreEntitySet="detalleVenta">
+                <ScalarProperty Name="fkVenta" ColumnName="fkVenta" />
+                <ScalarProperty Name="fkProducto" ColumnName="fkProducto" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="observacion" ColumnName="observacion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="idDetalle" ColumnName="idDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="negocios">
+            <EntityTypeMapping TypeName="appUModel.negocios">
+              <MappingFragment StoreEntitySet="negocios">
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="permitePagosTarjeta" ColumnName="permitePagosTarjeta" />
+                <ScalarProperty Name="precioEnvio" ColumnName="precioEnvio" />
+                <ScalarProperty Name="fkUsuario" ColumnName="fkUsuario" />
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="codigoPostal" ColumnName="codigoPostal" />
+                <ScalarProperty Name="ciudad" ColumnName="ciudad" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="imgNegocio" ColumnName="imgNegocio" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idNegocio" ColumnName="idNegocio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="productos">
+            <EntityTypeMapping TypeName="appUModel.productos">
+              <MappingFragment StoreEntitySet="productos">
+                <ScalarProperty Name="fkCategoria" ColumnName="fkCategoria" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="fkNegocio" ColumnName="fkNegocio" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="imgProducto" ColumnName="imgProducto" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="producto" ColumnName="producto" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ubicaciones">
+            <EntityTypeMapping TypeName="appUModel.ubicaciones">
+              <MappingFragment StoreEntitySet="ubicaciones">
+                <ScalarProperty Name="longitud" ColumnName="longitud" />
+                <ScalarProperty Name="latitud" ColumnName="latitud" />
+                <ScalarProperty Name="fkUsuario" ColumnName="fkUsuario" />
+                <ScalarProperty Name="idubicacion" ColumnName="idubicacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="appUModel.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="repartidor" ColumnName="repartidor" />
+                <ScalarProperty Name="fkNegocio" ColumnName="fkNegocio" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="contraseña" ColumnName="contraseña" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="apellidoMaterno" ColumnName="apellidoMaterno" />
+                <ScalarProperty Name="apellidoPaterno" ColumnName="apellidoPaterno" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ventas">
+            <EntityTypeMapping TypeName="appUModel.ventas">
+              <MappingFragment StoreEntitySet="ventas">
+                <ScalarProperty Name="pagoConTarjeta" ColumnName="pagoConTarjeta" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="total" ColumnName="total" />
+                <ScalarProperty Name="fkubicacionRepartidor" ColumnName="fkubicacionRepartidor" />
+                <ScalarProperty Name="fkUsuarioRepartidor" ColumnName="fkUsuarioRepartidor" />
+                <ScalarProperty Name="fkubicacionPedido" ColumnName="fkubicacionPedido" />
+                <ScalarProperty Name="fkNegocio" ColumnName="fkNegocio" />
+                <ScalarProperty Name="fkUsuarioPedido" ColumnName="fkUsuarioPedido" />
+                <ScalarProperty Name="fechaCancelado" ColumnName="fechaCancelado" />
+                <ScalarProperty Name="fechaentregado" ColumnName="fechaentregado" />
+                <ScalarProperty Name="fechaPreparado" ColumnName="fechaPreparado" />
+                <ScalarProperty Name="fechaPedido" ColumnName="fechaPedido" />
+                <ScalarProperty Name="idventa" ColumnName="idventa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,147 @@
+﻿
+<script src="~/Content/Angular/CarritoService.js"></script>
+<script src="~/Content/Angular/CarritoController.js"></script>
+<script src="~/Content/Angular/NegocioService.js"></script>
+<script src="~/Content/Angular/NegocioController.js"></script>
+<script src="~/Content/Angular/ProductoService.js"></script>
+<script src="~/Content/Angular/CategoriaService.js"></script>
+
+<style>
+    .listdemoBasicUsage md-divider {
+        margin-top: 0px;
+        margin-bottom: 0;
+    }
+
+    .listdemoListControls md-divider {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .listdemoListControls md-list {
+        padding-top: 0;
+    }
+
+    .listdemoListControls md-list-item > p,
+    .listdemoListControls md-list-item > .md-list-item-inner > p,
+    .listdemoListControls md-list-item .md-list-item-inner > p,
+    .listdemoListControls md-list-item .md-list-item-inner > .md-list-item-inner > p {
+        -webkit-user-select: none;
+        /* Chrome all / Safari all */
+        -moz-user-select: none;
+        /* Firefox all */
+        -ms-user-select: none;
+        /* IE 10+ */
+        user-select: none;
+        /* Likely future */
+    }
+
+    .dialogdemoThemeInheritance .container {
+        text-align: center;
+    }
+</style>
+
+
+<div>
+
+    <md-content>
+        <md-dialog-actions ng-controller="NegocioController" ng-init="traerNegocio()" layout-gt-sm="row" layout="row">
+            <img ng-src="~/imagenesProductos/{{negocio.imgNegocio}}" class="md-avatar" width='50' height='50'>
+            <md-subheader class="md-no-sticky">Negocio</md-subheader>
+            <div class="md-list-item-text" layout="row">
+                <h3>{{ negocio.nombre }}</h3>
+            </div>
+
+            <md-subheader class="md-no-sticky">Descripcion</md-subheader>
+            <div class="md-list-item-text" layout="row">
+                <h3>{{ negocio.descripcion }}</h3>
+            </div>
+
+            <md-subheader class="md-no-sticky">Domicilio</md-subheader>
+            <div class="md-list-item-text" layout="row">
+                <h3>{{ negocio.calle   }} #{{negocio.numero}} CP:{{negocio.codigoPostal}}</h3>
+            </div>
+
+        </md-dialog-actions>
+    </md-content>
+    <br />
+
+
+    <md-dialog-actions ng-cloak="" md-theme="{{theme}}" layout-gt-sm="row" layout="column" class="listdemoBasicUsage">
+
+
+
+        <md-dialog-actions ng-controller="CarritoController" flex-gt-sm="100" flex="" ng-init="TraerCarrito()">
+            <md-content>
+                <md-list flex="" layout="column">
+                    <md-dialog-actions layout="row">
+                        <md-subheader class="md-no-sticky">Productos</md-subheader>
+                        <span flex></span>
+                    </md-dialog-actions>
+
+                    <md-list-item class="md-3-line" ng-repeat="item in productosC">
+                        <img ng-src="~/imagenesProductos/{{item.imgProducto}}" class="md-avatar" alt="{{item.who}}">
+                        <div class="md-list-item-text" layout="column">
+                            <h3>{{ item.producto }}</h3>
+                            <h4>{{ item.descripcion }}</h4>
+                            <p>${{ item.precio }}</p>
+
+
+                            <md-button ng-click="actualizarCantidad(item.idProducto, 1, $index)" class="md-icon-button md-secondary" va name="special" aria-label="Settings">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </md-button>
+
+                            <p class="md-icon-button md-secondary" ng-init="traerCantidad(item.idProducto, $index)">{{ cantidad[$index] }}</p>
+
+                            <md-button ng-click="actualizarCantidad(item.idProducto, -1, $index)" class="md-icon-button md-secondary" va name="special" aria-label="Settings">
+                                <span class="glyphicon glyphicon-minus"></span>
+                            </md-button>
+
+                        </div>
+
+                    </md-list-item>
+                    <md-divider></md-divider>
+                </md-list>
+            </md-content>
+            <br />
+            <md-content>
+                <md-dialog-actions layout="row">
+                    <md-subheader class="md-no-sticky">Totales</md-subheader>
+                    <span flex></span>
+                    <p class="md-icon-button md-secondary">Total: {{total}}</p>
+                </md-dialog-actions>
+            </md-content>
+        </md-dialog-actions>
+    </md-dialog-actions>
+
+
+    <md-input-container ng-controller="CarritoController" class="md-icon-float md-block" flex-gt-sm>
+        <md-button id="btnSave" class="md-raised md-primary" ng-click="enviarPedido();">
+            <md-tooltip>
+                Enviar
+            </md-tooltip>
+            Enviar
+        </md-button>
+
+        <div id="alertModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- dialog body -->
+                    <div class="modal-body">
+
+                        {{msg}}
+                    </div>
+                    <!-- dialog buttons -->
+                    <div class="modal-footer">
+                        <button type="button" ng-click="alertmsg()" class="btn btn-primary">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </md-input-container>
+
+
+
+
+</div>
+

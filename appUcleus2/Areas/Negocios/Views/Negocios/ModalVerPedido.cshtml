@@ -1,0 +1,105 @@
+﻿<style>
+    .listdemoBasicUsage md-divider {
+        margin-top: 0px;
+        margin-bottom: 0;
+    }
+
+    .listdemoListControls md-divider {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .listdemoListControls md-list {
+        padding-top: 0;
+    }
+
+    .listdemoListControls md-list-item > p,
+    .listdemoListControls md-list-item > .md-list-item-inner > p,
+    .listdemoListControls md-list-item .md-list-item-inner > p,
+    .listdemoListControls md-list-item .md-list-item-inner > .md-list-item-inner > p {
+        -webkit-user-select: none;
+        /* Chrome all / Safari all */
+        -moz-user-select: none;
+        /* Firefox all */
+        -ms-user-select: none;
+        /* IE 10+ */
+        user-select: none;
+        /* Likely future */
+    }
+
+    .dialogdemoThemeInheritance .container {
+        text-align: center;
+    }
+</style>
+
+<script type="text/ng-template" id="dialog2.tmpl.html">
+    <md-dialog aria-label="Mango (Fruit)" style="border-radius: 14px 14px 14px 14px;
+-moz-border-radius: 14px 14px 14px 14px;
+-webkit-border-radius: 14px 14px 14px 14px;
+border: 0px inset #050405; width: 70%;" ng-controller="VentaAdminController">
+        <form ng-cloak name="projectForm">
+            <div ng-init="GetProducto()">
+                <md-toolbar class="md-accent" style="background-color: #04B404;">
+                    <div class="md-toolbar-tools">
+
+
+                        <span  class="glyphicon glyphicon-eye-open"></span>
+                        <h1 >PEDIDO</h1>
+
+                        <span flex></span>
+                        <md-button class="md-icon-button" ng-click="cancel()">
+                            <md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
+                        </md-button>
+                    </div>
+                </md-toolbar>
+
+  
+
+                    <md-dialog-actions ng-controller="VentaAdminController"  flex-gt-sm="100" flex="" ng-init="TraerPedido()">
+                        <md-content class="md-padding" layout-wrap layout-xs="column" layout="row" style="flex:auto">
+                            <md-list layout="column">
+                                <md-dialog-actions flex="" layout="row">
+                                    <md-subheader class="md-no-sticky">Productos</md-subheader>
+                                    <span flex></span>
+                                </md-dialog-actions>
+                            
+                                    <md-list-item class="md-3-line" ng-repeat="item2 in productos">
+                                        <img ng-src="~/imagenesProductos/{{item2.imgProducto}}?{{$index}}" class="md-avatar">
+                                        <div class="md-list-item-text" layout="column">
+                                            <h3>{{ item2.producto }}</h3>
+                                            <h4>{{ item2.descripcion }}</h4>
+                                            <p>${{ item2.precio }}</p>
+
+                                        </div>
+                                        <p class="md-icon-button md-secondary" ng-init="traerCantidad(item2.idProducto, $index, idVenta)"> - N. Productos: {{ cantidad[$index] }}</p>
+                                    </md-list-item>
+                                  
+                            </md-list>
+                        </md-content>
+
+                    </md-dialog-actions>
+
+
+                    @*<md-dialog-actions layout="row">
+                        <span flex></span>
+ 
+                        <md-button ng-click="InsertData(idProducto);" class="md-primary">
+                            Guardar
+                        </md-button>
+                    </md-dialog-actions>*@
+
+
+ 
+
+
+
+            
+
+            </div>
+        </form>
+    </md-dialog>
+
+
+
+</script>
+

@@ -1,0 +1,70 @@
+﻿<style>
+    .navBardemoBasicUsage md-content .ext-content {
+        padding: 10px;
+        margin: 10px;
+    }
+</style>
+
+
+<script src="~/Content/Angular/Module.js"></script>
+<script src="~/Content/Angular/NegocioAdminService.js"></script>
+<script src="~/Content/Angular/CategoriaService.js"></script>
+<script src="~/Content/Angular/NegocioAdminController.js"></script>
+<script src="~/Content/Angular/ProductoService.js"></script>
+<script src="~/Content/Angular/ProductoController.js"></script>
+<script src="~/Content/Angular/VentaAdminController.js"></script>
+<script src="~/Content/Angular/VentaAdminService.js"></script>
+
+@{
+    ViewBag.Title = "administrarNegocio";
+}
+
+<div ng-controller="NegocioAdminController" ng-cloak="" class="navBardemoBasicUsage" ng-app="myApp">
+    <md-content class="md-padding">
+        <md-nav-bar md-no-ink-bar="disableInkBar" md-selected-nav-item="currentNavItem" nav-bar-aria-label="navigation links">
+            <md-nav-item md-nav-click="goto('page1')" name="page1">
+                Datos Negocio
+            </md-nav-item>
+            <md-nav-item md-nav-click="goto('page2')" name="page2" ng-disabled="secondTabDisabled">
+                Productos
+            </md-nav-item>
+            <md-nav-item md-nav-click="goto('page3')" name="page3">
+                Pedidos
+            </md-nav-item>
+            <md-nav-item md-nav-click="goto('page4')" name="page4" disabled="" >
+                Historial Ventas
+            </md-nav-item>
+            <md-nav-item md-nav-click="goto('page5')" name="page5" disabled="">
+                Repartidores
+            </md-nav-item>
+
+            <!-- these require actual routing with ui-router or ng-route, so they
+    won't work in the demo
+    <md-nav-item md-nav-href="#page4" name="page5">Page Four</md-nav-item>
+    <md-nav-item md-nav-sref="app.page5" name="page4">Page Five</md-nav-item>
+    You can also add options for the <code>ui-sref-opts</code> attribute.
+    <md-nav-item md-nav-sref="page6" sref-opts="{reload:true, notify:true}">
+      Page Six
+    </md-nav-item>
+    -->
+        </md-nav-bar>
+
+        <div class="ext-content">
+            <div ng-if="currentNavItem == 'page1'">
+                <div ng-include="'vistaParcialDatosNegocio'"></div>
+            </div>
+            <div ng-if="currentNavItem == 'page2'">
+                <div ng-include="'VistaParcialProductos'"></div>
+            </div>
+            <div ng-if="currentNavItem == 'page3'">
+                <div ng-include="'VistaParcialPedidos'"></div>
+            </div>
+
+        </div>
+
+    </md-content>
+</div>
+
+
+
+

@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+
+
+
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8" />
+
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+    <link href="@Url.Content("~/Styles/menu.css")" rel="stylesheet" type="text/css" />
+
+    <script src="~/Scripts/angular.js"></script>
+    <script src="~/Scripts/angular-animate.min.js"></script>
+    <script src="~/Scripts/angular-route.min.js"></script>
+    <script src="~/Scripts/angular-aria.min.js"></script>
+
+    <script src="~/Scripts/angular-messages.min.js"></script>
+    <script src="~/Scripts/angular-material.js"></script>
+    <script src="~/Scripts/hammer.js"></script>
+
+
+
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.css">
+    <link rel="stylesheet" href="https://material.angularjs.org/1.1.10/docs.css" />
+
+    <script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.js"></script>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular-messages.min.js"></script>
+    <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/t-114/svg-assets-cache.js"></script>
+    <script src="https://cdn.gitcdn.link/cdn/angular/bower-material/v1.1.10/angular-material.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.1/moment.js"></script>
+
+    <script src="~/Content/Angular/Module.js"></script>
+    <script src="~/Content/Angular/NegocioService.js"></script>
+    <script src="~/Content/Angular/NegocioController.js"></script>
+    <script src="~/Content/Angular/CarritoService.js"></script>
+    <script src="~/Content/Angular/ProductoService.js"></script>
+    <script src="~/Content/Angular/CategoriaService.js"></script>
+    <script language="JavaScript" type="text/javascript" src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+            //hay que hacer lo mismo con la venta ok 
+            @{var myCookieventa = Request.Cookies["IdVenta"]; }
+            @if (myCookieventa == null) {
+               @:ocultar();
+
+            }
+
+            function login() {
+                if (window.location.pathname != "/usuario/login" && window.location.pathname != "/usuario/index")
+                    window.location.href = "/usuario/login";
+            }
+
+            @{var myCookielog = Request.Cookies["LoginID"]; }
+            @if (myCookielog == null) {
+                @:login();
+            }
+
+            function ocultar() {
+                $("#ejem").hide();
+            }
+
+        });
+    </script>
+
+
+</head>
+<header>
+    <my-app></my-app>
+    <nav class="navbar navbar-dark" style="background-color: rgba(115, 182, 6, 0.95);">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" style="background-color: rgba(115, 182, 6, 0.95);" href="~/Home/Index">BonAPPetit</a>
+            </div>
+          
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  
+                    @if (myCookielog != null)
+                    {
+
+                        <li ng-controller="NegocioController" ng-init="traerCategorias()">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                                <span class="glyphicon glyphicon-th"></span> Categorias
+                            </a>
+                            <ul class="dropdown-menu" style="background-color: #04B404;">
+                                <li ng-repeat="item in categorias">
+                                    <a ng-click="SeleccionarCategoria(item.idCategoria)" href="~/Home/Index">{{item.nombre}}</a>
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+
+                <form class="navbar-form navbar-left">
+                    <div class="form-group">
+                        <input type="text" ng-model="expression" class="form-control" placeholder="buscar comida">
+                    </div>
+
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+
+                    @if (myCookielog == null)
+                    {
+
+                        <li><a href="~/usuario/index"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+
+                        <li><a href="~/usuario/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                    }
+
+                    else
+                    {
+                        <li><a href="~/neg/recomendaciones"><span class="material-icons"></span>Recomendado para ti!</a></li>
+
+                        <li id="pedidos"><a href="~/Venta/pedidos"><span class="glyphicon glyphicon-list-alt"></span> Mis pedidos</a></li>
+
+                        <li><a href="~/Negocios/Negocios/index"><span class="glyphicon glyphicon-lock"></span> Mi negocio</a></li>
+
+                       
+                        
+                        <li id="ejem"><a href="~/venta/carrito"><span class="glyphicon glyphicon-shopping-cart"></span> Carrito</a></li>
+                        
+
+                        <li><a href="~/usuario/logon"><span class="	glyphicon glyphicon-log-out"></span> Salir</a></li>
+
+
+                    }
+
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+
+</header>
+
+
+
+<div class="container body-content">
+    @RenderBody()
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - BonAPPetit </p>
+    </footer>
+</div>
+
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+
+</html>

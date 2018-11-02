@@ -1,0 +1,111 @@
+﻿
+<style>
+    td {
+        font-size: 18px;
+    }
+
+    .modal-header {
+        background-color: #04B404;
+        color: white;
+    }
+
+    .dialogdemoThemeInheritance .container {
+        text-align: center;
+    }
+</style>
+
+
+<script src="~/Content/Angular/NegocioService.js"></script>
+<script src="~/Content/Angular/NegocioController.js"></script>
+<script src="~/Content/Angular/CarritoService.js"></script>
+<script src="~/Content/Angular/ProductoService.js"></script>
+<script src="~/Content/Angular/CategoriaService.js"></script>
+<script src="~/Content/Angular/VentaController.js"></script>
+<script src="~/Content/Angular/VentaService.js"></script>
+
+
+
+
+<div class="container" ng-controller="VentaController" ng-init="PedidosCliente()">
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>Negocio</th>
+                <th>Fecha pedido</th>
+                <th>Total</th>
+                <td>Estatus</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr data-toggle="modal" ng-repeat="item in pedidos" data-toggle="modal" data-target="#modalCart" ng-click="showAdvanced($event, item.idventa)" ng-init="traerNegocio(item.fkNegocio, $index)">
+                <td>#{{ item.idventa }}</td>
+                <td> <img ng-src="~/imagenesProductos/{{negocio[$index].imgNegocio}}" class="img-circle" width="55px" height="55px" alt=""> {{negocio[$index].nombre}}</td>
+
+                <td> {{ item.fechaPedido.substr(6,13) | date:"MM/dd/yyyy h:mma"}} -</td>
+                <td> ${{ item.total }}</td>
+                <td>
+                    <span ng-if="item.estatus == 1" class="label label-default">En espera</span>
+                    <span ng-if="item.estatus == 2" class="label label-primary">Aceptado</span>
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+
+
+    <!--modal-->
+    <div ng-include="'ModalVerPedido'"></div>
+
+    <!-- Modal: modalCart -->
+    <div class="modal fade" id="modalCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <!--Header-->
+                <div class="modal-header" >
+                    <h4 class="modal-title" id="myModalLabel">Pedido</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <!--Body-->
+                <div class="modal-body">
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Product name</th>
+                                <th>Cantidad</th>
+                                <th>Descripcion</th>
+                                <th>Precio</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="item2 in productos">
+                                <td>{{$index + 1}}</td>
+                                <td>{{ item2.producto }} </td>
+                                <td>{{ detalle[$index].cantidad }}</td>
+                                <td>{{ item2.descripcion }}</td>
+                                <td>{{ item2.precio }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                <!--Footer-->
+                <div class="modal-footer">
+                     total:  ${{venta.total }} 
+                    <button class="btn btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal: modalCart -->
+</div>
+
+
+
+

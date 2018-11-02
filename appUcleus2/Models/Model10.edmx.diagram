@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a0d8dc68cc784206b28b4c43b737c562" Name="Diagram1">
+        <EntityTypeShape EntityType="appUModel.calificaciones" Width="1.5" PointX="5.25" PointY="10.375" />
+        <EntityTypeShape EntityType="appUModel.categorias" Width="1.5" PointX="3" PointY="18" />
+        <EntityTypeShape EntityType="appUModel.detalleVenta" Width="1.5" PointX="10.5" PointY="11.625" />
+        <EntityTypeShape EntityType="appUModel.negocios" Width="1.5" PointX="3" PointY="11.25" />
+        <EntityTypeShape EntityType="appUModel.productos" Width="1.5" PointX="5.25" PointY="14.125" />
+        <EntityTypeShape EntityType="appUModel.ubicaciones" Width="1.5" PointX="3" PointY="5" />
+        <EntityTypeShape EntityType="appUModel.usuarios" Width="1.5" PointX="0.75" PointY="6.875" />
+        <EntityTypeShape EntityType="appUModel.ventas" Width="1.5" PointX="8.25" PointY="8.25" />
+        <AssociationConnector Association="appUModel.FK_calificaciones_negocios" />
+        <AssociationConnector Association="appUModel.FK_calificaciones_usuarios" />
+        <AssociationConnector Association="appUModel.FK_productos_categorias" />
+        <AssociationConnector Association="appUModel.FK_detalleVenta_productos" />
+        <AssociationConnector Association="appUModel.FK_detalleVenta_ventas" />
+        <AssociationConnector Association="appUModel.FK_negocios_usuarios" />
+        <AssociationConnector Association="appUModel.FK_productos_negocios" />
+        <AssociationConnector Association="appUModel.FK_usuarios_negocios" />
+        <AssociationConnector Association="appUModel.FK_ventas_negocios" />
+        <AssociationConnector Association="appUModel.FK_ubicaciones_usuarios" />
+        <AssociationConnector Association="appUModel.FK_ventas_ubicaciones" />
+        <AssociationConnector Association="appUModel.FK_ventas_ubicaciones1" />
+        <AssociationConnector Association="appUModel.FK_ventas_usuarios" />
+        <AssociationConnector Association="appUModel.FK_ventas_usuarios1" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

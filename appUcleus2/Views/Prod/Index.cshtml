@@ -1,0 +1,71 @@
+﻿
+
+@{
+    //List<appUcleus2.Models.productos> ListaProductos = ViewBag.productos as List<appUcleus2.Models.productos>;
+    ViewBag.Title = "Productos";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
+<script src="~/Content/Angular/Module.js"></script>
+<script src="~/Content/Angular/NegocioService.js"></script>
+<script src="~/Content/Angular/NegocioController.js"></script>
+<script src="~/Content/Angular/ProductoService.js"></script>
+<script src="~/Content/Angular/CategoriaService.js"></script>
+<script src="~/Content/Angular/CarritoService.js"></script>
+
+
+
+<body>
+
+
+
+    <div ng-controller="NegocioController" ng-cloak="" class="carddemoCardActionButtons"  ng-init="GetProducto()">
+
+        <div id="alertModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- dialog body -->
+                    <div class="modal-body">
+                        <button type="button" id="btn" value="Close" class="close" data-dismiss="modal">×</button>
+                        {{msg}}
+                    </div>
+                    <!-- dialog buttons -->
+                    <div class="modal-footer">
+                        <button type="button" ng-click="alertmsg()" class="btn btn-primary">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <md-content class="md-padding" layout-wrap layout-xs="column" layout="row" style="flex:auto; background-color:rgba(255,255,255,0.7);">
+            <div ng-repeat="item in productos  | filter:expression">
+                <div flex-xs="" flex-gt-xs="100" layout="column">
+                    <md-dialog-actions layout='row'>
+                        <a ng-click="AddCarrito(item)" class="exampleClass">
+                            <md-card md-theme='default' md-theme-watch>
+                                <md-card-title>
+                                    <md-card-title-text>
+                                        <span class='md-headline'>{{item.producto}}</span>
+                                        <span class='md-subhead'>{{item.descripcion}}</span>
+                                        <span class='md-subhead'>${{item.precio}}</span>
+
+                                    </md-card-title-text>
+                                </md-card-title>
+                                <md-card-content layout='row' layout-align='space-between'>
+                                    <div class='md-media-xl card-media'>
+                                        <img ng-src="~/imagenesProductos/{{item.imgProducto}}" class='md-card-image' width='300' height='250'>
+                                    </div>
+                                    <md-card-actions layout='column'>
+                                        <md-button class='md-icon-button' aria-label='Share'>
+                                            <md-icon md-svg-icon='img/icons/share-arrow.svg' style="color:firebrick"></md-icon>
+                                        </md-button>
+                                    </md-card-actions>
+                                </md-card-content>
+                            </md-card>
+                        </a>
+                    </md-dialog-actions>
+                </div>
+            </div>
+        </md-content>
+    </div>
+
+</body>

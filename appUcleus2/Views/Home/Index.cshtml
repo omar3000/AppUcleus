@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "BonAPPetit";
+}
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.7/angular.js"></script>
+<script src="~/Content/Angular/Module.js"></script>
+<script src="~/Content/Angular/NegocioService.js"></script>
+<script src="~/Content/Angular/CarritoService.js"></script>
+<script src="~/Content/Angular/ProductoService.js"></script>
+<script src="~/Content/Angular/CategoriaService.js"></script>
+<script src="~/Content/Angular/NegocioController.js"></script>
+
+
+<style>
+    html, body {
+        /*background-image: url(http://foodandtravel.mx/home/wp-content/uploads/2017/08/tacoslapastorFT.jpg);*/
+        background-position: bottom;
+        width: 100%;
+        height: 80%;
+    }
+</style>
+
+<html>
+<body>
+    <div ng-controller="NegocioController" ng-cloak="" class="carddemoCardActionButtons" ng-init="GetAllData()">
+        <md-content class="md-padding" layout-wrap layout-xs="column" layout="row" style="flex:auto; background-color:rgba(255,255,255,0.7);">
+            <div ng-repeat="item in negocios  | filter:expression">
+                <div flex-xs="" flex-gt-xs="100" layout="column">
+                    <md-dialog-actions layout='row'>
+                        <a ng-click="GetData(item)" class="exampleClass" href="~/Prod/Index">
+                                <md-card md-theme='default' md-theme-watch>
+                                    <md-card-title>
+                                        <md-card-title-text>
+                                            <span class='md-headline'>{{item.nombre}}</span>
+                                            <span class='md-subhead'>{{item.descripcion}}</span>
+                                        </md-card-title-text>
+                                    </md-card-title>
+                                    <md-card-content layout='row' layout-align='space-between'>
+                                        <div class='md-media-xl card-media'>
+                                            <img ng-src="~/imagenesProductos/{{item.imgNegocio}}" class='md-card-image' width='300' height='250'>
+                                        </div>
+                                        <md-card-actions layout='column'>
+                                            <md-button class='md-icon-button' aria-label='Share'>
+                                                <md-icon md-svg-icon='img/icons/share-arrow.svg' style="color:firebrick"></md-icon>
+                                            </md-button>
+                                        </md-card-actions>
+                                    </md-card-content>
+                                </md-card>
+                            </a>
+                    </md-dialog-actions>
+                    @*<button crear-card>Crear Card</button>
+                        <div id="CardBoton"></div>*@
+                </div>
+            </div>
+        </md-content>
+    </div>
+</body>
+</html>
+
